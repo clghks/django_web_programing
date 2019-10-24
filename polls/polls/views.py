@@ -4,12 +4,10 @@ from .models import Question
 
 # Create your views here.
 def index(request):
-    output = ""
+    latest_question_list = Question.objects.order_by("-pub_date")
+    context = {'latest_question_list': latest_question_list}
 
-    for q in Question.objects.order_by("-pub_date"):
-        output += '<a href="/polls/' + str(q.id) + '">' + q.question_text + '</a><br>'
-
-    return HttpResponse(output)
+    return render(request, 'polls/index.html', context)
 
 def detail(request, question_id):
    question = get_object_or_404(Question, pk=question_id)
