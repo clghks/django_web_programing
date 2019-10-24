@@ -21,8 +21,15 @@ def detail(request, question_id):
        output += '<input type="radio" name="choice" value="' + str(choice.id) + '">' + choice.choice_text + '</input><br>'
    output += '<input type="submit" value="Vote">'
    output += '</form>'
-   
+
    return HttpResponse(output)
 
 def results(request, question_id):
-    return HttpResponse("투표 결과 화면입니다.")
+    question = get_object_or_404(Question, pk=question_id)
+    choice_list = get_list_or_404(question.choice_set)
+
+    output = "<h1>" + question.question_text + "</h1>"
+    for choice in choice_list:
+        output += choice.choice_text + " : " + str(choice.votes) + "<br>"
+
+    return HttpResponse(output)
