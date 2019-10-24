@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Question
 
@@ -12,7 +12,7 @@ def index(request):
     return HttpResponse(output)
 
 def detail(request, question_id):
-   question = Question.objects.get(pk=question_id)
+   question = get_object_or_404(Question, pk=question_id)
    output = question.question_text + " 투표 상세 화면입니다."
 
    return HttpResponse(output)
