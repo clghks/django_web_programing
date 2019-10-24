@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Question
 
 # Create your views here.
@@ -33,3 +33,12 @@ def results(request, question_id):
         output += choice.choice_text + " : " + str(choice.votes) + "<br>"
 
     return HttpResponse(output)
+
+def vote(request, question_id):
+   question = Question.objects.get(pk=question_id)
+   selected_choice = question.choice_set.get(pk=request.POST['choice'])
+
+   selected_choice.votes += 1
+   selected_choice.save()
+
+   return HttpResponseRedirect('results')
