@@ -12,7 +12,10 @@ def index(request):
     return HttpResponse(output)
 
 def detail(request, question_id):
-    return HttpResponse("투표 화면입니다.")
+   question = Question.objects.get(pk=question_id)
+   output = question.question_text + " 투표 상세 화면입니다."
+
+   return HttpResponse(output)
 
 def results(request, question_id):
     return HttpResponse("투표 결과 화면입니다.")
