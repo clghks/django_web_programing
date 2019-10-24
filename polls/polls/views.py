@@ -4,7 +4,12 @@ from .models import Question
 
 # Create your views here.
 def index(request):
-    return HttpResponse(Question.objects.order_by("-pub_date"))
+    output = ""
+
+    for q in Question.objects.order_by("-pub_date"):
+        output += '<a href="/polls/' + str(q.id) + '">' + q.question_text + '</a><br>'
+
+    return HttpResponse(output)
 
 def detail(request, question_id):
     return HttpResponse("투표 화면입니다.")
