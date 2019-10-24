@@ -15,13 +15,8 @@ def detail(request, question_id):
 
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    choice_list = get_list_or_404(question.choice_set)
+    return render(request, 'polls/results.html', {'question': question})
 
-    output = "<h1>" + question.question_text + "</h1>"
-    for choice in choice_list:
-        output += choice.choice_text + " : " + str(choice.votes) + "<br>"
-
-    return HttpResponse(output)
 
 def vote(request, question_id):
    question = Question.objects.get(pk=question_id)
