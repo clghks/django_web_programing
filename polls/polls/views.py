@@ -17,7 +17,7 @@ def detail(request, question_id):
 
    output = "<h1>" + question.question_text + "</h1>"
    for choice in choice_list:
-       output += choice.choice_text + "<br>"
+       output += '<input type="radio" name="choice" value="' + str(choice.id) + '">' + choice.choice_text + '</input><br>'
 
    return HttpResponse(output)
 
