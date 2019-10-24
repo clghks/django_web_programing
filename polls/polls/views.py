@@ -10,17 +10,8 @@ def index(request):
     return render(request, 'polls/index.html', context)
 
 def detail(request, question_id):
-   question = get_object_or_404(Question, pk=question_id)
-   choice_list = get_list_or_404(question.choice_set)
-
-   output = "<h1>" + question.question_text + "</h1>"
-   output += '<form action="/polls/' + str(question_id) + '/vote" method="post">'
-   for choice in choice_list:
-       output += '<input type="radio" name="choice" value="' + str(choice.id) + '">' + choice.choice_text + '</input><br>'
-   output += '<input type="submit" value="Vote">'
-   output += '</form>'
-
-   return HttpResponse(output)
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'polls/detail.html', {'question': question})
 
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
