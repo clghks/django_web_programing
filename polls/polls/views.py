@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse
 from .models import Question
 
@@ -13,7 +13,11 @@ def index(request):
 
 def detail(request, question_id):
    question = get_object_or_404(Question, pk=question_id)
-   output = question.question_text + " 투표 상세 화면입니다."
+   choice_list = get_list_or_404(question.choice_set)
+
+   output = "<h1>" + question.question_text + "</h1>"
+   for choice in choice_list:
+       output += choice.choice_text + "<br>"
 
    return HttpResponse(output)
 
