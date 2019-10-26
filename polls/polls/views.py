@@ -19,8 +19,8 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
 
-def vote(request, question_id):
-   question = Question.objects.get(pk=question_id)
+def vote(request, pk):
+   question = Question.objects.get(pk=pk)
    selected_choice = question.choice_set.get(pk=request.POST['choice'])
 
    selected_choice.votes += 1
