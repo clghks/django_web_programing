@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Bookmark Detail</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Detail{% endblock %}
+
+{% block content %}
     {{ object.site_name }} <br>
     {{ object.url }}
-</body>
-</html>
+{% endblock %}
